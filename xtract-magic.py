@@ -1,8 +1,8 @@
 import os
 import sys
 import magic
-import pprint
 from itertools import chain
+from pprint import pp
 
 
 def flatten(nested_list):
@@ -13,7 +13,6 @@ xtract_magic = magic.Magic(
     mime=True,
     mime_encoding=True,
     keep_going=True,
-    uncompress=True,
     raw=True,
     extension=True
 )
@@ -32,7 +31,6 @@ def run_file(file_path=None):
     for idx,m in enumerate(mdata):
         mdata[idx] = m.split("\n-")
         mdata[idx] = [n.strip() for n in mdata[idx]]
-        mdata[idx] = flatten([n.split(" ") for n in mdata[idx]])
     return flatten(mdata)
 
 
@@ -48,5 +46,5 @@ def run_dir(dir_path):
 
 if __name__ == "__main__":
     dir = sys.argv[1]
-    pprint.pp(run_dir(dir))
-    
+    mdata = run_dir(dir)
+    pp(mdata)
